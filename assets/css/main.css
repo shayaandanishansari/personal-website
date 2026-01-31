@@ -1,0 +1,53 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+/* The page IS the canvas */
+body {
+  background: #24243a; /* same dark tone as your Canva screen */
+  color: white;
+}
+
+/* Just content with padding */
+.content {
+  padding: 160px 180px; /* top-left offset like your design */
+  max-width: 1000px;
+}
+
+/* Typography */
+h1 {
+  margin: 0;
+  font-size: 56px;
+  font-weight: 500;
+}
+
+.rule {
+  margin: 14px 0 20px;
+  height: 2px;
+  width: 520px;
+  background: rgba(255,255,255,0.7);
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.45;
+}
+
+.focus {
+  margin-top: 16px;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.email {
+  margin-top: 16px;
+  font-size: 15px;
+  opacity: 0.9;
+}
