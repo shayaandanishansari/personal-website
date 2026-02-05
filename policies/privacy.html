@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light dark" />
   <title>Privacy Policy</title>
-
   <style>
     body { margin: 2rem; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
     main { max-width: 78ch; }
@@ -14,29 +13,50 @@
 <body>
   <main>
     <h1>Privacy Policy</h1>
-    <p>This page is provided for reference.</p>
 
-    <article id="policy-content">Loading…</article>
+    <p><strong>Effective date:</strong> February 2, 2026</p>
+    <p>This Privacy Policy explains how information is handled on <strong>shayaandanishansari.com</strong>.</p>
+
+    <h2>1) General approach</h2>
+    <p>I do not intentionally collect personal data for advertising, profiling, or selling to third parties.</p>
+
+    <h2>2) Information you provide voluntarily</h2>
+    <p>You may voluntarily provide personal information if you:</p>
+    <ul>
+      <li>Email me directly</li>
+      <li>Submit comments or messages on the Website (if enabled)</li>
+    </ul>
+
+    <p>If you submit information voluntarily, it may be used only for:</p>
+    <ul>
+      <li>Responding to you</li>
+      <li>Moderation/spam prevention (if applicable)</li>
+      <li>Displaying your submitted content (e.g., comments), where features are public</li>
+    </ul>
+
+    <p>Do not post personal information publicly if you do not want it visible.</p>
+
+    <h2>3) Payments</h2>
+    <p>
+      If you make a payment, it is processed by <strong>Paddle</strong> (merchant of record).
+      Paddle may collect personal and transactional information necessary to process payments and comply with legal obligations.<br />
+      I do not store or have access to full payment card details.
+    </p>
+
+    <h2>4) Cookies and analytics</h2>
+    <p>The Website does not intentionally use advertising trackers. If analytics or additional cookies are introduced in the future, this policy will be updated.</p>
+
+    <h2>5) Data sharing</h2>
+    <p>I do not sell personal information.</p>
+    <p>
+      Information may be processed by service providers only as needed to operate the Website (e.g., hosting, email) and by Paddle for payment processing.
+    </p>
+
+    <h2>6) Data retention</h2>
+    <p>Emails and voluntary messages may be retained for communication and record-keeping. Public comments (if enabled) may remain visible unless removed.</p>
+
+    <h2>7) Contact</h2>
+    <p>Privacy questions or removal requests: <strong><a href="mailto:shayaan0303@gmail.com">shayaan0303@gmail.com</a></strong></p>
   </main>
-
-  <script src="assets/js/marked.umd.js"></script>
-  <script>
-    const mdUrl = new URL("assets/markdown/privacy.md", window.location.href);
-
-    fetch(mdUrl)
-      .then(r => {
-        if (!r.ok) throw new Error(`HTTP ${r.status} for ${mdUrl}`);
-        return r.text();
-      })
-      .then(md => {
-        document.getElementById("policy-content").innerHTML = marked.parse(md);
-      })
-      .catch(err => {
-        document.getElementById("policy-content").textContent =
-          "Unable to load privacy policy.";
-        console.error(err);
-        console.log("Tried:", mdUrl.toString());
-      });
-  </script>
 </body>
 </html>

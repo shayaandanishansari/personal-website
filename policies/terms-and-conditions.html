@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light dark" />
   <title>Terms and Conditions</title>
-
-  <!-- Optional tiny inline polish (safe). Remove if you want 100% default. -->
   <style>
     body { margin: 2rem; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
     main { max-width: 78ch; }
@@ -15,29 +13,82 @@
 <body>
   <main>
     <h1>Terms and Conditions</h1>
-    <p>This page is provided for reference.</p>
 
-    <article id="policy-content">Loading…</article>
+    <p><strong>Effective date:</strong> February 2, 2026</p>
+
+    <p>
+      These Terms and Conditions (“Terms”) govern your use of <strong>shayaandanishansari.com</strong> (the “Website”)
+      and related project pages, content, and software-related functionality made available through the Website
+      (collectively, the “Services”).
+    </p>
+
+    <p>By accessing or using the Website, you agree to these Terms.</p>
+
+    <h2>1) Operator</h2>
+    <p>The Website is operated by <strong>Shayaan Danish</strong> (“I”, “me”, “my”) as an individual.</p>
+
+    <h2>2) What the Website provides</h2>
+    <p>The Website may include:</p>
+    <ul>
+      <li>Information about software projects</li>
+      <li>Public pages, posts, and project documentation</li>
+      <li>Links to project repositories or downloads (where available)</li>
+      <li>The option to make <strong>project-tied payments</strong> related to software projects</li>
+    </ul>
+
+    <p>
+      Projects and Services may incorporate third-party tools, libraries, services, APIs, or other third-party components,
+      including without limitation hosting, infrastructure, or integration services, in accordance with their applicable terms.
+    </p>
+
+    <h2>3) Project-tied payments</h2>
+    <p>If you choose to make a payment through the Website:</p>
+    <ul>
+      <li>The payment is made <strong>in connection with a selected software project</strong></li>
+      <li>It supports ongoing work such as development, maintenance, hosting, and availability</li>
+      <li>It does not guarantee specific deliverables, features, timelines, support response times, or outcomes</li>
+    </ul>
+
+    <p>Payments are processed by <strong>Paddle</strong>, which acts as the <strong>merchant of record</strong>.</p>
+
+    <h2>4) Refunds</h2>
+    <p>Payments are <strong>final and non-refundable</strong>, except where required by applicable law or Paddle’s policies.</p>
+
+    <h2>5) Acceptable use</h2>
+    <p>You agree not to:</p>
+    <ul>
+      <li>Attempt to gain unauthorized access to the Website or its systems</li>
+      <li>Disrupt, harm, or interfere with the Website or other users</li>
+      <li>Submit unlawful, abusive, or harmful content (including via comments/messages, if enabled)</li>
+    </ul>
+
+    <h2>6) Intellectual property and project licenses</h2>
+    <p>Unless stated otherwise, the Website’s branding and original content are owned by me.</p>
+    <p>
+      Some software projects may be open-source or governed by separate licenses; where a project has a license,
+      that license governs your use of that project.
+    </p>
+
+    <h2>7) Disclaimers</h2>
+    <p>
+      The Services are provided <strong>“as is”</strong> and <strong>“as available.”</strong>
+      I make no warranties that the Website or projects will be uninterrupted, error-free, secure, or meet your requirements.
+    </p>
+
+    <h2>8) Limitation of liability</h2>
+    <p>
+      To the maximum extent permitted by law, I am not liable for indirect, incidental, consequential, special, or punitive
+      damages arising from your use of the Website or Services.
+    </p>
+
+    <h2>9) Changes to these Terms</h2>
+    <p>
+      I may update these Terms from time to time. Changes will be posted here with an updated effective date.
+      Continued use of the Website means you accept the updated Terms.
+    </p>
+
+    <h2>10) Contact</h2>
+    <p>Questions about these Terms: <strong><a href="mailto:shayaan0303@gmail.com">shayaan0303@gmail.com</a></strong></p>
   </main>
-
-  <script src="assets/js/marked.umd.js"></script>
-  <script>
-    const mdUrl = new URL("assets/markdown/terms-and-conditions.md", window.location.href);
-
-    fetch(mdUrl)
-      .then(r => {
-        if (!r.ok) throw new Error(`HTTP ${r.status} for ${mdUrl}`);
-        return r.text();
-      })
-      .then(md => {
-        document.getElementById("policy-content").innerHTML = marked.parse(md);
-      })
-      .catch(err => {
-        document.getElementById("policy-content").textContent =
-          "Unable to load terms and conditions.";
-        console.error(err);
-        console.log("Tried:", mdUrl.toString());
-      });
-  </script>
 </body>
 </html>

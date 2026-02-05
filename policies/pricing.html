@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light dark" />
   <title>Pricing</title>
-
   <style>
     body { margin: 2rem; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
     main { max-width: 78ch; }
@@ -14,29 +13,29 @@
 <body>
   <main>
     <h1>Pricing</h1>
-    <p>This page is provided for reference.</p>
 
-    <article id="policy-content">Loading…</article>
+    <p>This website uses a <strong>project-support pricing model</strong> for software projects published here.</p>
+
+    <h2>How pricing works</h2>
+    <ul>
+      <li>Payments are <strong>optional</strong> and are made in connection with a selected software project on this website.</li>
+      <li>There are <strong>no fixed prices</strong>. Where enabled, you can choose an amount within the available options.</li>
+      <li>Payments support the <strong>development, maintenance, hosting, and availability</strong> of software projects.</li>
+    </ul>
+
+    <h2>What a payment represents</h2>
+    <p>
+      A payment made here is a <strong>software-related transaction</strong> tied to a project.<br />
+      Because software projects evolve over time, payments do not guarantee specific features, timelines, outcomes, or ongoing availability.
+    </p>
+
+    <h2>Payment processing</h2>
+    <p>Payments are processed securely by <strong>Paddle</strong>, which acts as the <strong>merchant of record</strong>.</p>
+
+    <h2>Refunds</h2>
+    <p>Payments are <strong>final and non-refundable</strong>, except where required by applicable law or Paddle’s policies.</p>
+
+    <p>Questions: <strong><a href="mailto:shayaan0303@gmail.com">shayaan0303@gmail.com</a></strong></p>
   </main>
-
-  <script src="assets/js/marked.umd.js"></script>
-  <script>
-    const mdUrl = new URL("assets/markdown/pricing.md", window.location.href);
-
-    fetch(mdUrl)
-      .then(r => {
-        if (!r.ok) throw new Error(`HTTP ${r.status} for ${mdUrl}`);
-        return r.text();
-      })
-      .then(md => {
-        document.getElementById("policy-content").innerHTML = marked.parse(md);
-      })
-      .catch(err => {
-        document.getElementById("policy-content").textContent =
-          "Unable to load pricing.";
-        console.error(err);
-        console.log("Tried:", mdUrl.toString());
-      });
-  </script>
 </body>
 </html>
