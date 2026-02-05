@@ -4,8 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light dark" />
-  <title>Refund Policy</title>
+  <title>Terms and Conditions</title>
 
+  <!-- Optional tiny inline polish (safe). Remove if you want 100% default. -->
   <style>
     body { margin: 2rem; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
     main { max-width: 78ch; }
@@ -13,15 +14,15 @@
 </head>
 <body>
   <main>
-    <h1>Refund Policy</h1>
+    <h1>Terms and Conditions</h1>
     <p>This page is provided for reference.</p>
 
     <article id="policy-content">Loading…</article>
   </main>
 
-  <script src="../assets/js/marked.umd.js"></script>
+  <script src="assets/js/marked.umd.js"></script>
   <script>
-    const mdUrl = new URL("assets/markdown/refund.md", window.location.href);
+    const mdUrl = new URL("../assets/markdown/terms-and-conditions.md", window.location.href);
 
     fetch(mdUrl)
       .then(r => {
@@ -33,7 +34,7 @@
       })
       .catch(err => {
         document.getElementById("policy-content").textContent =
-          "Unable to load refund policy.";
+          "Unable to load terms and conditions.";
         console.error(err);
         console.log("Tried:", mdUrl.toString());
       });
