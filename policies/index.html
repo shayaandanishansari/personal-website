@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <title>Policies – Routing Debug</title>
+
+  <style>
+    body { margin: 2rem; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+    main { max-width: 90ch; }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+    pre { padding: 12px; border: 1px solid rgba(127,127,127,.35); border-radius: 8px; overflow: auto; }
+    .row { margin: 0.75rem 0; }
+    .ok { color: #2e7d32; }
+    .bad { color: #c62828; }
+    ul { padding-left: 1.2rem; }
+    li { margin: 0.35rem 0; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Policies – Routing Debug</h1>
+  <p>This page helps verify paths, routing, and markdown loading.</p>
+
+  <h2>Links</h2>
+  <ul>
+    <li><a href="./terms-and-conditions/">Terms and Conditions</a></li>
+    <li><a href="./privacy/">Privacy Policy</a></li>
+    <li><a href="./refund/">Refund Policy</a></li>
+    <li><a href="./pricing/">Pricing</a></li>
+  </ul>
+
+  <h2>Current location</h2>
+  <pre id="location">Loading…</pre>
+
+  <h2>Resolved asset paths from this page</h2>
+  <pre id="resolved">Loading…</pre>
+
+  <h2>Markdown fetch checks</h2>
+  <div id="checks">Running…</div>
+
+  <script>
+    const locText =
+`href:      ${location.href}
+origin:    ${location.origin}
+pathname:  ${location.pathname}`;
+
+    document.getElementById("location").textContent = locText;
+
+    // IMPORTANT: from /policies/index.html, assets are in ./assets/...
+    const paths = {
+      marked: new URL("./assets/js/marked.umd.js", location.href).toString(),
+      pricing: new URL("./assets/markdown/pricing.md", location.href).toString(),
+      privacy: new URL("./assets/markdown/privacy.md", location.href).toString(),
+      refund: new URL("./assets/markdown/refund.md", location.href).toString(),
+      terms: new URL("./assets/markdown/terms-and-conditions.md", location.href).toString(),
+    };
+
+    document.getElementById("resolved").textContent =
+`marked:    ${paths.marked}
+pricing:   ${paths.pricing}
+privacy:   ${paths.privacy}
+refund:    ${paths.refund}
+terms:     ${paths.terms}`;
+
+    const checksEl = document.getElementById("checks");
+
+    function addCheckRow(label, url, ok, extra) {
+      const div = document.createElement("div");
+      div.className = "row";
+      div.innerHTML = `
+        <strong>${label}</strong><br>
+        <code>${url}</code><br>
+        <span class="${ok ? "ok" : "bad"}">${ok ? "OK" : "FAILED"}</span>
+        ${extra ? ` — <code>${extra}</code>` : ""}
+      `;
+      checksEl.appendChild(div);
+    }
+
+    async function headOrGet(url) {
+      // Some static servers don't support HEAD correctly; fall back to GET.
+      try {
+        const r = await fetch(url, { method: "HEAD" });
+        if (r.ok) return { ok: true, status: r.status, method: "HEAD" };
+      } catch {}
+      const r2 = await fetch(url);
+      return { ok: r2.ok, status: r2.status, method: "GET" };
+    }
+
+    async function run() {
+      checksEl.textContent = "";
+
+      const items = [
+        ["marked.umd.js", paths.marked],
+        ["pricing.md", paths.pricing],
+        ["privacy.md", paths.privacy],
+        ["refund.md", paths.refund],
+        ["terms-and-conditions.md", paths.terms],
+      ];
+
+      for (const [label, url] of items) {
+        const res = await headOrGet(url);
+        addCheckRow(label, url, res.ok, `${res.method} ${res.status}`);
+      }
+    }
+
+    run();
+  </script>
+</main>
+</body>
+</html>
