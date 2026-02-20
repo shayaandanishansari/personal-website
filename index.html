@@ -1,122 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shayaan Danish</title>
+    <meta name="description" content="Shayaan Danish - Creative Problem Solver and Software Engineer specializing in Websites, Apps, and LLM Systems">
+    <meta name="author" content="Shayaan Danish">
+    <title>Shayaan Danish | Software Engineer</title>
     <link rel="stylesheet" href="assets/css/main.css">
 </head>
-
 <body>
-    <!-- NAVIGATION-BAR -->
+    <!-- Navigation -->
     <nav class="navbar">
         <ul>
-            <li><a href="#index.html">Home</a></li>
-            <li><a href="#projects.html">Projects</a></li>
-            <li><a href="#support.html">Support a Project</a></li>
-            <li><a href="#contact.html">Contact</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="support.html">Support a Project</a></li>
+            <li><a href="contact.html">Contact</a></li>
         </ul>
     </nav>
 
-    <!-- PROFILE-SECTION -->
-    <section class="hero">
+    <!-- Hero Section -->
+    <header class="hero">
         <div class="profile-container">
             <img src="assets/img/profile.jpg" alt="Shayaan Danish" class="profile-img">
             <div class="hero-text">
                 <h1>Shayaan Danish</h1>
                 <div class="rule"></div>
-                <p class="subtitle">Creative Problem Solver and<br>Software Engineer</p>
+                <p class="subtitle">Creative Problem Solver and Software Engineer</p>
                 <p class="focus">Websites · Apps · LLMs</p>
             </div>
         </div>
-    </section>
+    </header>
 
-    <!-- PROJECTS-SECTION -->
-    <div class="portfolio-container">
+    <!-- Portfolio Showcase -->
+    <section class="portfolio-container" aria-label="Project Portfolio">
 
-        <!-- Left Card -->
+        <!-- Left Card - Websites -->
         <div class="category-card" data-position="left" data-category="websites">
             <h2 class="category-title">Websites</h2>
             <div class="projects-container">
-                <div class="project-card" data-project="highlighter">
+                <article class="project-card"
+                         data-project="highlighter"
+                         data-title="Highlighter"
+                         data-description="A modern web-based text highlighting and annotation tool. Allows users to highlight, comment, and share important sections of text with collaborative features."
+                         data-tech="React, Node.js, MongoDB, Socket.io"
+                         data-color="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)">
                     <div class="project-header">
                         <div class="project-logo" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
                         <span class="project-name">Highlighter</span>
                     </div>
                     <div class="project-preview" style="background: linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);"></div>
-                </div>
+                </article>
 
-                <div class="project-card" data-project="jourts">
+                <article class="project-card"
+                         data-project="jourts"
+                         data-title="JOURTS"
+                         data-description="E-commerce platform for gourmet food delivery. Features real-time inventory, personalized recommendations, and seamless checkout experience."
+                         data-tech="Next.js, Stripe, PostgreSQL, Redis"
+                         data-color="linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)">
                     <div class="project-header">
                         <div class="project-logo" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
                         <span class="project-name">JOURTS</span>
                     </div>
                     <div class="project-preview" style="background: linear-gradient(180deg, #e8f5e9 0%, #c8e6c9 100%);"></div>
-                </div>
+                </article>
             </div>
         </div>
 
-        <!-- Center Card -->
+        <!-- Center Card - Apps -->
         <div class="category-card" data-position="center" data-category="apps">
             <h2 class="category-title">Apps</h2>
             <div class="projects-container">
-                <div class="project-card main-project" data-project="file-visualiser">
+                <article class="project-card main-project"
+                         data-project="file-visualiser"
+                         data-title="File Structure Visualiser"
+                         data-description="Interactive tool for visualizing complex file directory structures. Provides tree views, search functionality, and export options for documentation."
+                         data-tech="TypeScript, D3.js, Electron, Vue.js"
+                         data-color="linear-gradient(135deg, #fa709a 0%, #fee140 100%)">
                     <div class="project-header">
                         <div class="project-logo" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);"></div>
                         <span class="project-name">File Structure Visualiser</span>
                     </div>
                     <div class="project-preview" style="background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);"></div>
-                </div>
+                </article>
 
                 <div class="projects-grid">
-                    <div class="project-card" data-project="quotescript">
+                    <article class="project-card"
+                             data-project="quotescript"
+                             data-title="QuoteScript"
+                             data-description="Automation tool for generating and managing quotes. Integrates with CRM systems and provides template customization."
+                             data-tech="Python, FastAPI, React, Docker"
+                             data-color="linear-gradient(135deg, #30cfd0 0%, #330867 100%)">
                         <div class="project-header">
                             <div class="project-logo" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);"></div>
                             <span class="project-name">QuoteScript</span>
                         </div>
                         <div class="project-preview" style="background: linear-gradient(180deg, #2d3748 0%, #1a202c 100%);"></div>
-                    </div>
+                    </article>
 
-                    <div class="project-card" data-project="grocify">
+                    <article class="project-card"
+                             data-project="grocify"
+                             data-title="Grocify"
+                             data-description="Mobile-first grocery shopping app with AI-powered recommendations, recipe suggestions, and same-day delivery integration."
+                             data-tech="React Native, Firebase, TensorFlow, Node.js"
+                             data-color="linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)">
                         <div class="project-header">
                             <div class="project-logo" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);"></div>
                             <span class="project-name">Grocify</span>
                         </div>
                         <div class="project-preview" style="background: linear-gradient(180deg, #d4fc79 0%, #96e6a1 100%);"></div>
-                    </div>
+                    </article>
                 </div>
             </div>
         </div>
 
-        <!-- Right Card -->
+        <!-- Right Card - LLM Systems -->
         <div class="category-card" data-position="right" data-category="llm">
             <h2 class="category-title">LLM Systems</h2>
             <div class="projects-container">
-                <div class="project-card" data-project="lm-stick">
+                <article class="project-card"
+                         data-project="lm-stick"
+                         data-title="LM Stick"
+                         data-description="Large Language Model management and deployment platform. Provides API endpoints, monitoring, and version control for AI models."
+                         data-tech="Python, FastAPI, Kubernetes, PyTorch"
+                         data-color="linear-gradient(135deg, #667eea 0%, #764ba2 100%)">
                     <div class="project-header">
                         <div class="project-logo" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
                         <span class="project-name">LM Stick</span>
                     </div>
                     <div class="project-preview" style="background: linear-gradient(180deg, #1a1a2e 0%, #0f0f1e 100%);"></div>
-                </div>
+                </article>
 
-                <div class="project-card" data-project="neural-net">
+                <article class="project-card"
+                         data-project="lm-stick-server"
+                         data-title="LM Stick Server"
+                         data-description="Backend server infrastructure for LM Stick platform. Handles model inference, request queuing, and scalable deployment."
+                         data-tech="Python, FastAPI, Docker, AWS"
+                         data-color="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)">
                     <div class="project-header">
                         <div class="project-logo" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
                         <span class="project-name">LM Stick Server</span>
                     </div>
                     <div class="project-preview" style="background: linear-gradient(180deg, #2d3748 0%, #1a202c 100%);"></div>
-                </div>
-
+                </article>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Modal -->
-    <div class="modal-overlay" id="modalOverlay">
+    <!-- Project Modal -->
+    <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
         <div class="modal-content">
-            <button class="modal-close" id="modalClose">&times;</button>
+            <button class="modal-close" id="modalClose" aria-label="Close modal">&times;</button>
             <div class="modal-header">
                 <div class="modal-logo" id="modalLogo"></div>
                 <h2 class="modal-title" id="modalTitle">Project Title</h2>
@@ -135,5 +169,4 @@
 
     <script src="assets/js/main.js"></script>
 </body>
-
 </html>
