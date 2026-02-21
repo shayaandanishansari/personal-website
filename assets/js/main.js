@@ -62,11 +62,19 @@ function extractProjectData(card) {
     };
 }
 
-/**
- * Open modal with project data
- * @param {Object} project - Project data object
- */
-function openModal(project) {
+function openModal(projectId) {
+    // Find the project card by data-project attribute
+    const projectCard = document.querySelector(`[data-project="${projectId}"]`);
+    if (!projectCard) return;
+
+    // Extract data from data attributes
+    const project = {
+        title: projectCard.dataset.title || 'Project',
+        description: projectCard.dataset.description || 'No description available.',
+        technologies: projectCard.dataset.tech ? projectCard.dataset.tech.split(',').map(t => t.trim()) : [],
+        color: projectCard.dataset.color || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+    };
+
     const modalOverlay = document.getElementById('modalOverlay');
     const modalLogo = document.getElementById('modalLogo');
     const modalTitle = document.getElementById('modalTitle');
@@ -74,23 +82,20 @@ function openModal(project) {
     const techStack = document.getElementById('techStack');
     const modalPreview = document.getElementById('modalPreview');
 
-    // Populate modal content
+    // Set modal content
     modalLogo.style.background = project.color;
     modalTitle.textContent = project.title;
     modalDescription.textContent = project.description;
     modalPreview.style.background = project.color;
 
-    // Generate technology tags
+    // Generate tech tags
     techStack.innerHTML = project.technologies.length > 0
         ? project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')
         : '<span class="tech-tag">No technologies listed</span>';
 
-    // Show modal
     modalOverlay.classList.add('active');
     document.body.style.overflow = 'hidden';
-}
-
-/**
+}/**
  * Close the modal
  */
 function closeModal() {
@@ -102,8 +107,11 @@ function closeModal() {
 /**
  * Prevent context menu on cards for app-like feel
  */
-document.querySelectorAll('.category-card, .project-card').forEach(element => {
-    element.addEventListener('contextmenu', (e) => {
-        e.preventDefault();
+// Project card clicks
+document.querySelectorAll('.project-card').forEach(projectCard => {
+    projectCard.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const projectId = projectCard.dataset.project;
+        openModal(projectId);
     });
 });
