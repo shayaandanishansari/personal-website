@@ -418,9 +418,10 @@ body {
 }
 
 .modal-body {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
     gap: 24px;
+    align-items: start;
 }
 
 .modal-preview {
@@ -442,6 +443,57 @@ body {
     color: rgba(255, 255, 255, 0.8);
     line-height: 1.6;
     font-size: 16px;
+}
+
+.modal-preview {
+    grid-column: 1 / -1;
+}
+
+.modal-description {
+    min-width: 0;
+}
+
+.modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-self: end;
+    align-self: end;
+    margin-left: 8px;
+}
+
+.modal-action-btn {
+    width: 88px;
+    min-height: 34px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.15;
+    padding: 6px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.modal-action-btn:hover,
+.modal-action-btn:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+    outline: none;
+}
+
+.modal-action-demo {
+    background: #000000;
+    color: #ffffff;
+}
+
+.modal-action-read {
+    background: #ffffff;
+    color: #000000;
 }
 
 .tech-stack {
@@ -524,6 +576,35 @@ body {
         grid-template-columns: 1fr;
     }
 
+    .modal-body {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .modal-preview {
+        height: 180px;
+    }
+
+    .modal-actions {
+        width: 100%;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-self: stretch;
+        justify-self: stretch;
+        margin-left: 0;
+    }
+
+    .modal-action-btn {
+        width: auto;
+        min-width: 92px;
+        min-height: 38px;
+    }
+
+    .modal-action-read br {
+        display: none;
+    }
+
     /* Hero Mobile */
     .profile-container {
         flex-direction: column;
@@ -565,6 +646,22 @@ body {
 
     .navbar a {
         font-size: 0.85rem;
+    }
+
+    .modal-content {
+        padding: 28px 18px 20px;
+        width: 94%;
+    }
+
+    .modal-title {
+        font-size: 24px;
+        padding-right: 18px;
+    }
+
+    .modal-logo {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
     }
 
     .hero-text .subtitle {
@@ -682,4 +779,23 @@ body {
         text-align: center;
         margin-top: 1.5rem;
     }
+}
+/* ============================================
+   ACCESSIBILITY POLISH
+   ============================================ */
+.project-card:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.9);
+    outline-offset: 2px;
+    background: rgba(255, 255, 255, 0.16);
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.15);
+}
+
+.modal-close:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.85);
+    outline-offset: 3px;
+    border-radius: 10px;
+}
+
+.modal-section:first-child h3 {
+    margin-top: 0;
 }

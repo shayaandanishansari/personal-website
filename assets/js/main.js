@@ -1,111 +1,209 @@
 /**
-Portfolio Modal System
-Handles project card interactions and modal display
-*/
+ * Portfolio Modal System (Hybrid HTML + JS)
+ * - Project cards keep rich modal content in hidden <template> blocks
+ * - JS handles interaction, focus management, and modal rendering
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
     initializeModal();
     initializeProjectCards();
 });
 
-/**
-Initialize modal event listeners
-*/
+let lastFocusedCard = null;
+
 function initializeModal() {
     const modalOverlay = document.getElementById('modalOverlay');
     const modalClose = document.getElementById('modalClose');
 
     if (!modalOverlay || !modalClose) return;
 
-    // Close button click
     modalClose.addEventListener('click', closeModal);
 
-    // Click outside modal to close
-    modalOverlay.addEventListener('click', (e) => {
-        if (e.target === modalOverlay) {
+    modalOverlay.addEventListener('click', (event) => {
+        if (event.target === modalOverlay) {
             closeModal();
         }
     });
 
-    // Escape key to close
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+    document.addEventListener('keydown', (event) => {
+        const isOpen = modalOverlay.classList.contains('active');
+        if (!isOpen) return;
+
+        if (event.key === 'Escape') {
+            event.preventDefault();
             closeModal();
+            return;
+        }
+
+        if (event.key === 'Tab') {
+            trapFocus(event, modalOverlay);
         }
     });
 }
 
-/**
-Initialize project card click handlers
-*/
 function initializeProjectCards() {
     const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach(card => {
-        card.addEventListener('click', (e) => {
-            e.stopPropagation();
-            openModal(card); // Pass the card element directly
+
+    projectCards.forEach((card) => {
+        // Ensure keyboard and dialog semantics even if omitted in HTML later
+        card.setAttribute('tabindex', card.getAttribute('tabindex') || '0');
+        card.setAttribute('role', card.getAttribute('role') || 'button');
+        card.setAttribute('aria-haspopup', 'dialog');
+        card.setAttribute('aria-controls', 'modalOverlay');
+
+        const title = card.dataset.title || card.querySelector('.project-name')?.textContent?.trim() || 'Project';
+        if (!card.getAttribute('aria-label')) {
+            card.setAttribute('aria-label', `Open details for ${title}`);
+        }
+
+        card.addEventListener('click', (event) => {
+            event.stopPropagation();
+            openModal(card);
+        });
+
+        card.addEventListener('keydown', (event) => {
+            const key = event.key;
+            if (key === 'Enter' || key === ' ') {
+                event.preventDefault();
+                openModal(card);
+            }
         });
     });
 }
 
-/**
-Open the modal and populate data
-@param {HTMLElement} card - The clicked project card
-*/
 function openModal(card) {
     const modalOverlay = document.getElementById('modalOverlay');
+    const modalContent = modalOverlay?.querySelector('.modal-content');
+    const modalClose = document.getElementById('modalClose');
     const modalLogo = document.getElementById('modalLogo');
     const modalTitle = document.getElementById('modalTitle');
-    const modalDescription = document.getElementById('modalDescription');
-    const techStack = document.getElementById('techStack');
     const modalPreview = document.getElementById('modalPreview');
+    const modalDetails = document.getElementById('modalDetails');
+    const modalDemoLink = document.getElementById('modalDemoLink');
+    const modalReadMoreLink = document.getElementById('modalReadMoreLink');
 
-    if (!modalOverlay) return;
+    if (!modalOverlay || !modalLogo || !modalTitle || !modalPreview || !modalDetails || !modalClose || !modalDemoLink || !modalReadMoreLink) {
+        return;
+    }
 
-    // Extract data
     const title = card.dataset.title || 'Project';
-    const description = card.dataset.description || 'No description available.';
-    const techList = card.dataset.tech ? card.dataset.tech.split(',').map(t => t.trim()) : [];
     const color = card.dataset.color || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
     const logoImg = card.dataset.logo;
     const previewImg = card.dataset.preview;
 
-    // Set Text Content
     modalTitle.textContent = title;
-    modalDescription.textContent = description;
 
-    // Set Logo (Image or Gradient)
+    // Logo (image or gradient)
     if (logoImg) {
-        modalLogo.style.backgroundImage = `url('${logoImg}')`;
         modalLogo.style.background = `url('${logoImg}') no-repeat center/cover`;
     } else {
         modalLogo.style.background = color;
-        modalLogo.style.backgroundImage = 'none';
     }
 
-    // Set Preview (Image or Gradient)
+    // Preview (image or gradient)
     if (previewImg) {
         modalPreview.style.background = `url('${previewImg}') no-repeat center/cover`;
     } else {
         modalPreview.style.background = color;
     }
 
-    // Generate tech tags
-    techStack.innerHTML = techList.length > 0
-        ? techList.map(tech => `<span class="tech-tag">${tech}</span>`).join('')
-        : '<span class="tech-tag">No technologies listed</span>';
+    // Pull rich HTML content from the card's hidden template
+    const template = card.querySelector('.project-modal-template');
+    modalDetails.innerHTML = '';
 
-    // Show Modal
+    if (template instanceof HTMLTemplateElement) {
+        modalDetails.appendChild(template.content.cloneNode(true));
+    } else {
+        // Fallback for legacy cards still using data-* only
+        const description = card.dataset.description || 'No description available.';
+        const techList = card.dataset.tech
+            ? card.dataset.tech.split(',').map((item) => item.trim()).filter(Boolean)
+            : [];
+
+        const descriptionHeading = document.createElement('h3');
+        descriptionHeading.textContent = 'Description';
+        const descriptionText = document.createElement('p');
+        descriptionText.textContent = description;
+
+        const techHeading = document.createElement('h3');
+        techHeading.textContent = 'Technologies';
+        const techStack = document.createElement('div');
+        techStack.className = 'tech-stack';
+
+        if (techList.length > 0) {
+            techList.forEach((tech) => {
+                const tag = document.createElement('span');
+                tag.className = 'tech-tag';
+                tag.textContent = tech;
+                techStack.appendChild(tag);
+            });
+        } else {
+            const tag = document.createElement('span');
+            tag.className = 'tech-tag';
+            tag.textContent = 'No technologies listed';
+            techStack.appendChild(tag);
+        }
+
+        modalDetails.append(descriptionHeading, descriptionText, techHeading, techStack);
+    }
+
+    const projectSlug = (card.dataset.project || '').trim();
+    const defaultProjectUrl = projectSlug ? `projects/${projectSlug}.html` : '#';
+    const demoUrl = (card.dataset.demoUrl || '').trim() || defaultProjectUrl;
+    const readMoreUrl = (card.dataset.readUrl || '').trim() || defaultProjectUrl;
+
+    modalDemoLink.href = demoUrl;
+    modalReadMoreLink.href = readMoreUrl;
+
+    lastFocusedCard = card;
     modalOverlay.classList.add('active');
+    modalOverlay.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+
+    // Focus close button for keyboard users
+    requestAnimationFrame(() => {
+        modalClose.focus();
+        modalContent?.scrollTo({ top: 0, behavior: 'auto' });
+    });
 }
 
-/**
-Close the modal
-*/
 function closeModal() {
     const modalOverlay = document.getElementById('modalOverlay');
     if (!modalOverlay) return;
 
     modalOverlay.classList.remove('active');
+    modalOverlay.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+
+    if (lastFocusedCard) {
+        lastFocusedCard.focus();
+    }
+}
+
+function trapFocus(event, modalOverlay) {
+    const focusable = getFocusableElements(modalOverlay);
+    if (focusable.length === 0) {
+        event.preventDefault();
+        return;
+    }
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    const active = document.activeElement;
+
+    if (event.shiftKey && active === first) {
+        event.preventDefault();
+        last.focus();
+    } else if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
+    }
+}
+
+function getFocusableElements(container) {
+    return Array.from(
+        container.querySelectorAll(
+            'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+        )
+    ).filter((el) => !el.hasAttribute('hidden') && el.offsetParent !== null);
 }
