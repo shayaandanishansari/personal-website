@@ -453,47 +453,91 @@ body {
     min-width: 0;
 }
 
+.modal-section + .modal-section {
+    margin-top: 18px;
+}
+
+/* Modal action area (no outer pill / no rail) */
 .modal-actions {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
     justify-self: end;
     align-self: end;
-    margin-left: 8px;
+    margin-left: 12px;
+
+    /* force-remove any previous "big pill" wrapper styling */
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    backdrop-filter: none;
 }
 
+/* Base button style (bigger + cleaner) */
 .modal-action-btn {
-    width: 88px;
-    min-height: 34px;
-    border-radius: 8px;
-    display: flex;
+    width: 124px;
+    min-height: 42px;
+    border-radius: 10px;
+
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     text-decoration: none;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 1.15;
-    padding: 6px 10px;
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    line-height: 1.1;
+    padding: 8px 14px;
+
+    border: 1px solid rgba(255, 255, 255, 0.20);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
 }
 
 .modal-action-btn:hover,
 .modal-action-btn:focus-visible {
     transform: translateY(-1px);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.24);
     outline: none;
 }
 
+/* Demo button (black) */
 .modal-action-demo {
-    background: #000000;
+    background: linear-gradient(180deg, #0b0b0d 0%, #000000 100%);
     color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.14);
 }
 
+/* Read more button (white) */
 .modal-action-read {
-    background: #ffffff;
-    color: #000000;
+    background: linear-gradient(180deg, #ffffff 0%, #f3f3f5 100%);
+    color: #0f0f12;
+    border-color: rgba(255, 255, 255, 0.55);
+}
+
+/* Mobile: still clean, slightly compact */
+@media (max-width: 768px) {
+    .modal-actions {
+        width: 100%;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-self: stretch;
+        justify-self: stretch;
+        margin-left: 0;
+    }
+
+    .modal-action-btn {
+        width: 118px;
+        min-width: 118px;
+        min-height: 40px;
+    }
+
+    .modal-action-read br {
+        display: none;
+    }
 }
 
 .tech-stack {
@@ -589,16 +633,17 @@ body {
     .modal-actions {
         width: 100%;
         flex-direction: row;
-        justify-content: flex-start;
+        justify-content: flex-end;
         align-self: stretch;
         justify-self: stretch;
         margin-left: 0;
+        padding: 10px;
     }
 
     .modal-action-btn {
         width: auto;
-        min-width: 92px;
-        min-height: 38px;
+        min-width: 110px;
+        min-height: 40px;
     }
 
     .modal-action-read br {
