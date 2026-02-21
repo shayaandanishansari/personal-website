@@ -6,7 +6,7 @@
 /* --- CSS VARIABLES --- */
 :root {
     --card-width: 420px;
-    --card-height: 580px;
+    --card-height: 490px;
     --overlap-amount: 100px;
     --transition-speed: 0.6s;
     --color-bg: #1a1a1a;
@@ -267,8 +267,9 @@ body {
     height: 36px;
     border-radius: 10px;
     flex-shrink: 0;
-    object-fit: cover; /* Ensures images fill the space nicely */
-    object-position: center;
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(255,255,255,0.1); /* Fallback */
 }
 
 .project-name {
@@ -282,6 +283,8 @@ body {
     height: 120px;
     width: 100%;
     transition: all 0.3s ease;
+    background-size: cover;
+    background-position: center;
 }
 
 /* ============================================
@@ -375,23 +378,22 @@ body {
     position: absolute;
     top: 20px;
     right: 20px;
-    background: rgba(255, 255, 255, 0.1);
+    background: transparent;
     border: none;
-    color: var(--color-text);
+    color: rgba(255, 255, 255, 0.5);
     width: 40px;
     height: 40px;
-    border-radius: 50%;
     font-size: 24px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: color 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0;
 }
 
 .modal-close:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: rotate(90deg);
+    color: #ffffff;
 }
 
 .modal-header {
@@ -405,6 +407,8 @@ body {
     width: 60px;
     height: 60px;
     border-radius: 16px;
+    background-size: cover;
+    background-position: center;
 }
 
 .modal-title {
@@ -423,6 +427,8 @@ body {
     border-radius: 16px;
     height: 250px;
     width: 100%;
+    background-size: cover;
+    background-position: center;
 }
 
 .modal-description h3 {
