@@ -26,10 +26,10 @@ const PADDLE_PRICE_IDS = {
         100: 'pri_01kjsmnefwc90rd1yawgp06nk0',
     },
     'file-visualiser': {
-        1:   'pri_REPLACE_FILE_VISUALISER_1',
-        5:   'pri_REPLACE_FILE_VISUALISER_5',
-        10:  'pri_REPLACE_FILE_VISUALISER_10',
-        100: 'pri_REPLACE_FILE_VISUALISER_100',
+        1:   'pri_01kjsnfmb1x188eht8m725gfaa',
+        5:   'pri_01kjsnfysyc1v4jfw6t12gevxc',
+        10:  'pri_01kjsnga6a3a628p19fwfj1tt3',
+        100: 'pri_01kjsngv27jt2bkn026sh9nhfs',
     },
     'quotescript': {
         1:   'pri_01kjsnfmb1x188eht8m725gfaa',
