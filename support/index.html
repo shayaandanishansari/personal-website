@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Support a Project - Shayaan Danish">
+    <title>Support a Project | Shayaan Danish</title>
+    <link rel="stylesheet" href="assets/css/support.css">
+</head>
+<body class="support-page">
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="index.html">Support a Project</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="support-main">
+
+        <p class="support-heading">
+            Select a project to support the maintenance<br>
+            and further development of: <span id="dynamicProjectName"></span>
+        </p>
+
+        <div class="support-layout">
+
+            <!-- Project List -->
+            <div class="project-list" role="listbox" aria-label="Select a project to support">
+
+                <!-- LM Stick -->
+                <div class="support-project-item"
+                     tabindex="0" role="option" aria-selected="false"
+                     data-project="lm-stick" data-name="LM Stick">
+                    <img src="../assets/img/lmstick-logo.png" alt="" class="support-project-logo">
+                    <span class="support-project-name">LM Stick</span>
+                    <span class="support-project-category">LLM Systems</span>
+                </div>
+
+                <!-- Highlighter -->
+                <div class="support-project-item"
+                     tabindex="0" role="option" aria-selected="false"
+                     data-project="highlighter" data-name="Highlighter">
+                    <img src="../assets/img/highlighter-logo.png" alt="" class="support-project-logo">
+                    <span class="support-project-name">Highlighter</span>
+                    <span class="support-project-category">Websites</span>
+                </div>
+
+                <!-- JOURTS -->
+                <div class="support-project-item"
+                     tabindex="0" role="option" aria-selected="false"
+                     data-project="jourts" data-name="Jourts">
+                    <img src="../assets/img/jourts-logo.png" alt="" class="support-project-logo">
+                    <span class="support-project-name">Jourts</span>
+                    <span class="support-project-category">Websites</span>
+                </div>
+
+                <!-- File Structure Visualiser -->
+                <div class="support-project-item"
+                     tabindex="0" role="option" aria-selected="false"
+                     data-project="file-visualiser" data-name="File Structure Visualiser">
+                    <img src="../assets/img/filestructurevisualiser-logo.png" alt="" class="support-project-logo">
+                    <span class="support-project-name">File Structure Visualiser</span>
+                    <span class="support-project-category">Apps</span>
+                </div>
+
+                <!-- QuoteScript -->
+                <div class="support-project-item"
+                     tabindex="0" role="option" aria-selected="false"
+                     data-project="quotescript" data-name="QuoteScript">
+                    <img src="../assets/img/quotescript-logo.png" alt="" class="support-project-logo">
+                    <span class="support-project-name">QuoteScript</span>
+                    <span class="support-project-category">Apps</span>
+                </div>
+
+                <!-- Grocify -->
+                <div class="support-project-item"
+                     tabindex="0" role="option" aria-selected="false"
+                     data-project="grocify" data-name="Grocify">
+                    <img src="../assets/img/grocery-logo.png" alt="" class="support-project-logo">
+                    <span class="support-project-name">Grocify</span>
+                    <span class="support-project-category">Apps</span>
+                </div>
+
+            </div>
+
+            <!-- Payment Panel -->
+            <div class="payment-panel" id="paymentPanel" aria-live="polite" aria-label="Payment selection">
+
+                <p class="payment-label">Payment Selection</p>
+
+                <div class="amount-grid">
+                    <button class="amount-btn" data-amount="1" aria-label="$1">$1</button>
+                    <button class="amount-btn" data-amount="5" aria-label="$5">$5</button>
+                    <button class="amount-btn" data-amount="10" aria-label="$10">$10</button>
+                    <button class="amount-btn" data-amount="100" aria-label="$100">$100</button>
+                </div>
+
+                <div class="amount-other-wrapper">
+                    <button class="amount-btn other-btn" data-amount="other" aria-expanded="false" aria-controls="otherInputWrapper">
+                        Other
+                    </button>
+                    <div class="other-input-wrapper" id="otherInputWrapper" role="group" aria-label="Enter custom amount">
+                        <span class="other-dollar" aria-hidden="true">$</span>
+                        <input
+                            type="number"
+                            class="other-input"
+                            id="otherAmountInput"
+                            min="1"
+                            step="1"
+                            placeholder="Enter amount"
+                            aria-label="Custom dollar amount"
+                        >
+                    </div>
+                </div>
+
+                <button class="next-btn" id="nextBtn" disabled aria-disabled="true">
+                    Next →
+                </button>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <p>&copy; Shayaan Danish 2026</p>
+                <a href="mailto:shayaan0303@gmail.com" class="footer-email">shayaan0303@gmail.com</a>
+            </div>
+            <div class="footer-right">
+                <a href="../policies/terms-and-conditions.html">Terms and Conditions</a>
+                <a href="../policies/privacy.html">Privacy Policy</a>
+                <a href="../policies/refund.html">Refund Policy</a>
+                <a href="../policies/pricing.html">Pricing</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+    <script>Paddle.Initialize({ token: 'live_e73f5816f3a8e571c8d62425bfb' });</script>
+    <script src="assets/js/support.js"></script>
+
+</body>
+</html>
