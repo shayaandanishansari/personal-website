@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="assets/css/landing.css">
 </head>
 <body>
-    <!-- Navigation -->
+
     <nav class="navbar">
         <ul>
             <li><a href="index.html">Home</a></li>
@@ -20,7 +20,6 @@
         </ul>
     </nav>
 
-    <!-- Hero Section -->
     <header class="hero">
         <div class="profile-container">
             <img src="assets/img/profile.jpg" alt="Shayaan Danish" class="profile-img">
@@ -33,149 +32,20 @@
         </div>
     </header>
 
-    <!-- Portfolio Showcase -->
-    <section class="portfolio-container" aria-label="Project Portfolio">
+    <section id="portfolioContainer" class="portfolio-container" aria-label="Project Portfolio"></section>
 
-        <!-- Left Card - Websites -->
-        <div class="category-card" data-position="left" data-category="websites">
-            <h2 class="category-title">Websites</h2>
-            <div class="projects-container">
-                <article class="project-card"
-                         data-project="highlighter"
-                         data-title="Highlighter"
-                         data-description="A modern web-based text highlighting and annotation tool. Allows users to highlight, comment, and share important sections of text with collaborative features."
-                         data-tech="React, Node.js, MongoDB, Socket.io"
-                         data-color="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
-                         data-logo="assets/img/highlighter-logo.png"
-                         data-preview="assets/img/highlighter-website.png">
-                    <div class="project-header">
-                        <img src="assets/img/highlighter-logo.png" alt="Highlighter Logo" class="project-logo">
-                        <span class="project-name">Highlighter</span>
-                    </div>
-                    <img src="assets/img/highlighter-website.png" alt="Highlighter Project Screenshot" class="project-preview">
-                </article>
-
-                <article class="project-card"
-                         data-project="jourts"
-                         data-title="JOURTS"
-                         data-description="E-commerce platform for gourmet food delivery. Features real-time inventory, personalized recommendations, and seamless checkout experience."
-                         data-tech="Next.js, Stripe, PostgreSQL, Redis"
-                         data-color="linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
-                         data-logo="assets/img/jourts-logo.png"
-                         data-preview="assets/img/jourts-website.png">
-                    <div class="project-header">
-                        <img src="assets/img/jourts-logo.png" alt="JOURTS Logo" class="project-logo">
-                        <span class="project-name">JOURTS</span>
-                    </div>
-                    <img src="assets/img/jourts-website.png" alt="JOURTS Project Screenshot" class="project-preview">
-                </article>
-            </div>
-        </div>
-
-        <!-- Center Card - Apps -->
-        <div class="category-card" data-position="center" data-category="apps">
-            <h2 class="category-title">Apps</h2>
-            <div class="projects-container">
-                <article class="project-card main-project"
-                         data-project="file-visualiser"
-                         data-title="File Structure Visualiser"
-                         data-description="Interactive tool for visualizing complex file directory structures. Provides tree views, search functionality, and export options for documentation."
-                         data-tech="TypeScript, D3.js, Electron, Vue.js"
-                         data-color="linear-gradient(135deg, #fa709a 0%, #fee140 100%)"
-                         data-logo="assets/img/filestructurevisualiser-logo.png"
-                         data-preview="assets/img/filestructurevisualiser-app.png">
-                    <div class="project-header">
-                        <img src="assets/img/filestructurevisualiser-logo.png" alt="File Structure Visualiser Logo" class="project-logo">
-                        <span class="project-name">File Structure Visualiser</span>
-                    </div>
-                    <img src="assets/img/filestructurevisualiser-app.png" alt="File Structure Visualiser Screenshot" class="project-preview">
-                </article>
-
-                <div class="projects-grid">
-                    <article class="project-card"
-                             data-project="quotescript"
-                             data-title="QuoteScript"
-                             data-description="Automation tool for generating and managing quotes. Integrates with CRM systems and provides template customization."
-                             data-tech="Python, FastAPI, React, Docker"
-                             data-color="linear-gradient(135deg, #30cfd0 0%, #330867 100%)"
-                             data-logo="assets/img/quotescript-logo.png"
-                             data-preview="assets/img/quotescript-app.png">
-                        <div class="project-header">
-                            <img src="assets/img/quotescript-logo.png" alt="QuoteScript Logo" class="project-logo">
-                            <span class="project-name">QuoteScript</span>
-                        </div>
-                        <img src="assets/img/quotescript-app.png" alt="QuoteScript Screenshot" class="project-preview">
-                    </article>
-
-                    <article class="project-card"
-                             data-project="grocify"
-                             data-title="Grocify"
-                             data-description="Mobile-first grocery shopping app with AI-powered recommendations, recipe suggestions, and same-day delivery integration."
-                             data-tech="React Native, Firebase, TensorFlow, Node.js"
-                             data-color="linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)"
-                             data-logo="assets/img/grocery-logo.png"
-                             data-preview="assets/img/grocery-website.png">
-                        <div class="project-header">
-                            <img src="assets/img/grocery-logo.png" alt="Grocify Logo" class="project-logo">
-                            <span class="project-name">Grocify</span>
-                        </div>
-                        <img src="assets/img/grocery-website.png" alt="Grocify Screenshot" class="project-preview">
-                    </article>
-                </div>
-            </div>
-        </div>
-
-        <!-- Right Card - LLM Systems -->
-        <div class="category-card" data-position="right" data-category="llm">
-            <h2 class="category-title">LLM Systems</h2>
-            <div class="projects-container">
-                <article class="project-card"
-                         data-project="lm-stick"
-                         data-title="LM Stick"
-                         data-description="Large Language Model management and deployment platform. Provides API endpoints, monitoring, and version control for AI models."
-                         data-tech="Python, FastAPI, Kubernetes, PyTorch"
-                         data-color="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-                         data-logo="assets/img/lmstick-logo.png"
-                         data-preview="assets/img/lm-stick-folders.png">
-                    <div class="project-header">
-                        <img src="assets/img/lmstick-logo.png" alt="LM Stick Logo" class="project-logo">
-                        <span class="project-name">LM Stick</span>
-                    </div>
-                    <img src="assets/img/lm-stick-folders.png" alt="LM Stick Screenshot" class="project-preview">
-                </article>
-
-                <article class="project-card"
-                         data-project="lm-stick-server"
-                         data-title="LM Stick Server"
-                         data-description="Backend server infrastructure for LM Stick platform. Handles model inference, request queuing, and scalable deployment."
-                         data-tech="Python, FastAPI, Docker, AWS"
-                         data-color="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
-                         data-logo="assets/img/lmstick-logo.png"
-                         data-preview="assets/img/lm-stick-folders.png">
-                    <div class="project-header">
-                        <img src="assets/img/lmstick-logo.png" alt="LM Stick Logo" class="project-logo">
-                        <span class="project-name">LM Stick Server</span>
-                    </div>
-                    <img src="assets/img/ollama-server.png" alt="LM Stick Server Screenshot" class="project-preview">
-                </article>
-            </div>
-        </div>
-
-    </section>
-
-    <!-- Project Modal -->
     <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-content" tabindex="-1">
             <button class="modal-close" id="modalClose" aria-label="Close modal">&times;</button>
             <div class="modal-header">
                 <div class="modal-logo" id="modalLogo"></div>
-                <h2 class="modal-title" id="modalTitle">Project Title</h2>
+                <h2 class="modal-title" id="modalTitle"></h2>
             </div>
             <div class="modal-body">
                 <div class="modal-preview" id="modalPreview"></div>
                 <div class="modal-description">
                     <h3>Description</h3>
-                    <p id="modalDescription">Project details will appear here...</p>
+                    <p id="modalDescription"></p>
                     <h3>Technologies</h3>
                     <div class="tech-stack" id="techStack"></div>
                 </div>
@@ -187,22 +57,24 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <footer class="site-footer">
-    <div class="footer-content">
-        <div class="footer-left">
-            <p>&copy; Shayaan Danish 2026</p>
-            <a href="mailto:shayaan0303@gmail.com" class="footer-email">shayaan0303@gmail.com</a>
+        <div class="footer-content">
+            <div class="footer-left">
+                <p>&copy; Shayaan Danish 2026</p>
+                <a href="mailto:shayaan0303@gmail.com" class="footer-email">shayaan0303@gmail.com</a>
+            </div>
+            <div class="footer-right">
+                <a href="policies/terms-and-conditions.html">Terms and Conditions</a>
+                <a href="policies/privacy.html">Privacy Policy</a>
+                <a href="policies/refund.html">Refund Policy</a>
+                <a href="policies/pricing.html">Pricing</a>
+            </div>
         </div>
-        <div class="footer-right">
-            <a href="policies/terms-and-conditions.html">Terms and Conditions</a>
-            <a href="policies/privacy.html">Privacy Policy</a>
-            <a href="policies/refund.html">Refund Policy</a>
-            <a href="policies/pricing.html">Pricing</a>
-        </div>
-    </div>
-</footer>
+    </footer>
 
+    <script src="data/projects.js"></script>
+    <script src="assets/js/render-landing.js"></script>
     <script src="assets/js/main.js"></script>
+
 </body>
 </html>
