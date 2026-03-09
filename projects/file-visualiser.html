@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="File Structure Visualiser — An interactive desktop tool for visualising complex directory trees">
-    <title>File Structure Visualiser | Shayaan Danish</title>
-    <link rel="stylesheet" href="assets/css/projects.css">
+    <meta name="description" content="">
+    <title>Loading... | Shayaan Danish</title>
     <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/projects.css">
 </head>
-<body class="project-detail-page">
+<body class="project-detail-page" data-project-id="file-visualiser">
 
     <nav class="navbar">
         <ul>
@@ -24,37 +24,29 @@
         <a href="index.html" class="project-back">← Projects</a>
 
         <div class="project-detail-header">
-            <img src="../assets/img/filestructurevisualiser-logo.png" alt="File Structure Visualiser Logo" class="project-detail-logo">
+            <img id="detailLogo" src="" alt="" class="project-detail-logo">
             <div class="project-detail-meta">
-                <span class="project-detail-category">Apps</span>
-                <h1 class="project-detail-title">File Structure Visualiser</h1>
-                <p class="project-detail-tagline">An interactive desktop tool for visualising complex directory trees</p>
+                <span id="detailCategory" class="project-detail-category"></span>
+                <h1 id="detailTitle" class="project-detail-title"></h1>
+                <p id="detailTagline" class="project-detail-tagline"></p>
             </div>
         </div>
 
         <div class="project-detail-preview">
-            <img src="../assets/img/filestructurevisualiser-app.png" alt="File Structure Visualiser screenshot" class="project-detail-img">
+            <img id="detailPreviewImg" src="" alt="" class="project-detail-img">
         </div>
 
         <div class="project-detail-body">
-
             <div class="project-detail-content">
                 <h2>Overview</h2>
-                <p>File Structure Visualiser is an Electron desktop application that takes any folder on your machine and renders it as an interactive, navigable tree. Built out of personal frustration with trying to understand large inherited codebases and communicate project structure in documentation.</p>
-<p>The tree view supports collapsing and expanding nodes, search and highlight across the entire structure, and colour coding by file type. Nodes can be clicked to open files directly in your default editor.</p>
-<p>Export options include a clean SVG diagram for documentation, a plain text tree for README files, and a JSON representation for programmatic use. The app runs fully offline with no telemetry.</p>
-
+                <div id="detailOverview"></div>
                 <h2>Tech Stack</h2>
-                <div class="project-tech-stack">
-                    <span class="tech-tag">TypeScript</span><span class="tech-tag">D3.js</span><span class="tech-tag">Electron</span><span class="tech-tag">Vue.js</span>
-                </div>
+                <div id="detailTechStack" class="project-tech-stack"></div>
             </div>
-
             <div class="project-detail-actions">
-                <a href="#" class="project-action-btn primary" target="_blank" rel="noopener noreferrer">Live Demo</a>
+                <a id="detailDemoBtn" href="#" class="project-action-btn primary">Live Demo</a>
                 <a href="../support/index.html" class="project-action-btn secondary">Support this project</a>
             </div>
-
         </div>
 
     </main>
@@ -73,6 +65,9 @@
             </div>
         </div>
     </footer>
+
+    <script src="../data/projects.js"></script>
+    <script src="assets/js/render-project-detail.js"></script>
 
 </body>
 </html>

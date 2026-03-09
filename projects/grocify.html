@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Grocify — An AI-powered mobile grocery app with same-day delivery">
-    <title>Grocify | Shayaan Danish</title>
-    <link rel="stylesheet" href="assets/css/projects.css">
+    <meta name="description" content="">
+    <title>Loading... | Shayaan Danish</title>
     <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/projects.css">
 </head>
-<body class="project-detail-page">
+<body class="project-detail-page" data-project-id="grocify">
 
     <nav class="navbar">
         <ul>
@@ -24,37 +24,29 @@
         <a href="index.html" class="project-back">← Projects</a>
 
         <div class="project-detail-header">
-            <img src="../assets/img/grocery-logo.png" alt="Grocify Logo" class="project-detail-logo">
+            <img id="detailLogo" src="" alt="" class="project-detail-logo">
             <div class="project-detail-meta">
-                <span class="project-detail-category">Apps</span>
-                <h1 class="project-detail-title">Grocify</h1>
-                <p class="project-detail-tagline">An AI-powered mobile grocery app with same-day delivery</p>
+                <span id="detailCategory" class="project-detail-category"></span>
+                <h1 id="detailTitle" class="project-detail-title"></h1>
+                <p id="detailTagline" class="project-detail-tagline"></p>
             </div>
         </div>
 
         <div class="project-detail-preview">
-            <img src="../assets/img/grocery-website.png" alt="Grocify screenshot" class="project-detail-img">
+            <img id="detailPreviewImg" src="" alt="" class="project-detail-img">
         </div>
 
         <div class="project-detail-body">
-
             <div class="project-detail-content">
                 <h2>Overview</h2>
-                <p>Grocify is a mobile-first grocery shopping app designed around reducing the cognitive load of weekly shopping. The core feature is an AI recommendation engine that learns your household's preferences over time and suggests a personalised weekly shop — including recipe-based suggestions that auto-populate the ingredient list.</p>
-<p>The app integrates with local delivery partners for same-day fulfilment, with live order tracking from checkout to doorstep. A smart substitution system handles out-of-stock items by suggesting equivalent alternatives rather than silently removing them from your order.</p>
-<p>Built with React Native for a consistent experience across iOS and Android, with Firebase handling real-time order state and TensorFlow Lite powering on-device recommendation inference for speed and privacy.</p>
-
+                <div id="detailOverview"></div>
                 <h2>Tech Stack</h2>
-                <div class="project-tech-stack">
-                    <span class="tech-tag">React Native</span><span class="tech-tag">Firebase</span><span class="tech-tag">TensorFlow</span><span class="tech-tag">Node.js</span>
-                </div>
+                <div id="detailTechStack" class="project-tech-stack"></div>
             </div>
-
             <div class="project-detail-actions">
-                <a href="#" class="project-action-btn primary" target="_blank" rel="noopener noreferrer">Live Demo</a>
+                <a id="detailDemoBtn" href="#" class="project-action-btn primary">Live Demo</a>
                 <a href="../support/index.html" class="project-action-btn secondary">Support this project</a>
             </div>
-
         </div>
 
     </main>
@@ -73,6 +65,9 @@
             </div>
         </div>
     </footer>
+
+    <script src="../data/projects.js"></script>
+    <script src="assets/js/render-project-detail.js"></script>
 
 </body>
 </html>

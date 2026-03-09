@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Highlighter — A modern web-based text highlighting and annotation tool">
-    <title>Highlighter | Shayaan Danish</title>
-    <link rel="stylesheet" href="assets/css/projects.css">
+    <meta name="description" content="">
+    <title>Loading... | Shayaan Danish</title>
     <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/projects.css">
 </head>
-<body class="project-detail-page">
+<body class="project-detail-page" data-project-id="highlighter">
 
     <nav class="navbar">
         <ul>
@@ -24,37 +24,29 @@
         <a href="index.html" class="project-back">← Projects</a>
 
         <div class="project-detail-header">
-            <img src="../assets/img/highlighter-logo.png" alt="Highlighter Logo" class="project-detail-logo">
+            <img id="detailLogo" src="" alt="" class="project-detail-logo">
             <div class="project-detail-meta">
-                <span class="project-detail-category">Websites</span>
-                <h1 class="project-detail-title">Highlighter</h1>
-                <p class="project-detail-tagline">A modern web-based text highlighting and annotation tool</p>
+                <span id="detailCategory" class="project-detail-category"></span>
+                <h1 id="detailTitle" class="project-detail-title"></h1>
+                <p id="detailTagline" class="project-detail-tagline"></p>
             </div>
         </div>
 
         <div class="project-detail-preview">
-            <img src="../assets/img/highlighter-website.png" alt="Highlighter screenshot" class="project-detail-img">
+            <img id="detailPreviewImg" src="" alt="" class="project-detail-img">
         </div>
 
         <div class="project-detail-body">
-
             <div class="project-detail-content">
                 <h2>Overview</h2>
-                <p>Highlighter is a collaborative web platform that lets users mark up, annotate, and share important sections of any text. Built for researchers, writers, and teams who need a frictionless way to capture and communicate ideas within documents.</p>
-<p>Users can highlight passages in multiple colours, attach inline comments, and share annotated documents via a unique link — no account required for viewers. Real-time collaboration means multiple users can annotate the same document simultaneously, with changes appearing instantly.</p>
-<p>The editor supports plain text and rich content, with an export option that preserves all highlights and comments as a formatted PDF or HTML file.</p>
-
+                <div id="detailOverview"></div>
                 <h2>Tech Stack</h2>
-                <div class="project-tech-stack">
-                    <span class="tech-tag">React</span><span class="tech-tag">Node.js</span><span class="tech-tag">MongoDB</span><span class="tech-tag">Socket.io</span>
-                </div>
+                <div id="detailTechStack" class="project-tech-stack"></div>
             </div>
-
             <div class="project-detail-actions">
-                <a href="#" class="project-action-btn primary" target="_blank" rel="noopener noreferrer">Live Demo</a>
+                <a id="detailDemoBtn" href="#" class="project-action-btn primary">Live Demo</a>
                 <a href="../support/index.html" class="project-action-btn secondary">Support this project</a>
             </div>
-
         </div>
 
     </main>
@@ -73,6 +65,9 @@
             </div>
         </div>
     </footer>
+
+    <script src="../data/projects.js"></script>
+    <script src="assets/js/render-project-detail.js"></script>
 
 </body>
 </html>

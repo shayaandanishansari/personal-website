@@ -46,7 +46,7 @@ const PROJECTS = [
 
   {
     id: "jourts",
-    name: "JOURTS",
+    name: "Jourts",
     category: "websites",
     categoryLabel: "Websites",
     tagline: "An online grocery store",
@@ -148,26 +148,6 @@ const PROJECTS = [
     preview: "lm-stick-folders.png",
     color: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
     demoUrl: "https://pub-bfb26aaa51024d16b54830768efdd3af.r2.dev/LM_Stick.zip",
-    featured: false,
-  },
-
-  {
-    id: "lm-stick-server",
-    name: "LM Stick Server",
-    category: "llm",
-    categoryLabel: "LLM Systems",
-    // TODO: Replace with real description — no README provided
-    tagline: "Backend server infrastructure for the LM Stick platform",
-    description: "Backend server infrastructure for the LM Stick platform. Handles model inference, request queuing, and scalable deployment.",
-    overview: [
-      "TODO: Add real overview for LM Stick Server.",
-    ],
-    // TODO: Confirm tech stack
-    tech: ["Python", "FastAPI", "Docker", "AWS"],
-    logo: "lmstick-logo.png",
-    preview: "ollama-server.png",
-    color: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
-    demoUrl: "#",
     featured: false,
   },
 

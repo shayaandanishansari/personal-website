@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="JOURTS — A gourmet food e-commerce platform with real-time inventory">
-    <title>JOURTS | Shayaan Danish</title>
-    <link rel="stylesheet" href="assets/css/projects.css">
+    <meta name="description" content="">
+    <title>Loading... | Shayaan Danish</title>
     <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/projects.css">
 </head>
-<body class="project-detail-page">
+<body class="project-detail-page" data-project-id="jourts">
 
     <nav class="navbar">
         <ul>
@@ -24,37 +24,29 @@
         <a href="index.html" class="project-back">← Projects</a>
 
         <div class="project-detail-header">
-            <img src="../assets/img/jourts-logo.png" alt="Jourts Logo" class="project-detail-logo">
+            <img id="detailLogo" src="" alt="" class="project-detail-logo">
             <div class="project-detail-meta">
-                <span class="project-detail-category">Websites</span>
-                <h1 class="project-detail-title">JOURTS</h1>
-                <p class="project-detail-tagline">A gourmet food e-commerce platform with real-time inventory</p>
+                <span id="detailCategory" class="project-detail-category"></span>
+                <h1 id="detailTitle" class="project-detail-title"></h1>
+                <p id="detailTagline" class="project-detail-tagline"></p>
             </div>
         </div>
 
         <div class="project-detail-preview">
-            <img src="../assets/img/jourts-website.png" alt="Jourts screenshot" class="project-detail-img">
+            <img id="detailPreviewImg" src="" alt="" class="project-detail-img">
         </div>
 
         <div class="project-detail-body">
-
             <div class="project-detail-content">
                 <h2>Overview</h2>
-                <p>JOURTS is a full-stack e-commerce platform built for gourmet and artisan food brands. The focus was on building a shopping experience that feels premium — fast load times, smooth transitions, and a checkout flow with zero friction.</p>
-<p>The platform features real-time inventory tracking so customers never encounter out-of-stock surprises at checkout, personalised product recommendations based on browsing history, and seamless Stripe-powered payments with saved card support.</p>
-<p>On the backend, an admin dashboard gives store owners full control over product listings, orders, and customer data, with CSV export for accounting and fulfilment workflows.</p>
-
+                <div id="detailOverview"></div>
                 <h2>Tech Stack</h2>
-                <div class="project-tech-stack">
-                    <span class="tech-tag">Next.js</span><span class="tech-tag">Stripe</span><span class="tech-tag">PostgreSQL</span><span class="tech-tag">Redis</span>
-                </div>
+                <div id="detailTechStack" class="project-tech-stack"></div>
             </div>
-
             <div class="project-detail-actions">
-                <a href="#" class="project-action-btn primary" target="_blank" rel="noopener noreferrer">Live Demo</a>
+                <a id="detailDemoBtn" href="#" class="project-action-btn primary">Live Demo</a>
                 <a href="../support/index.html" class="project-action-btn secondary">Support this project</a>
             </div>
-
         </div>
 
     </main>
@@ -73,6 +65,9 @@
             </div>
         </div>
     </footer>
+
+    <script src="../data/projects.js"></script>
+    <script src="assets/js/render-project-detail.js"></script>
 
 </body>
 </html>

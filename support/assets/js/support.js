@@ -1,11 +1,11 @@
 /**
- * Support Page Logic
+ * support.js
  * Project selection → payment fade-in → amount pick → Paddle checkout
+ * Waits for 'projectsRendered' event from render-support.js before
+ * querying the DOM, since items are built dynamically.
  */
 
 // ─── Paddle price IDs ─────────────────────────────────────────────────────────
-// One set of 4 price IDs per project. Replace each placeholder with the
-// actual pri_... ID from that project's product page in your Paddle dashboard.
 const PADDLE_PRICE_IDS = {
     'lm-stick': {
         1:   'pri_01kjsm6sgmaz14fzbv8v2wvsw0',
@@ -47,135 +47,110 @@ const PADDLE_PRICE_IDS = {
 
 // ─── State ────────────────────────────────────────────────────────────────────
 let selectedProject = null;
-let selectedAmount   = null;  // number | 'other'
-let customAmount     = null;  // floored whole number, only used when selectedAmount === 'other'
+let selectedAmount  = null;
+let customAmount    = null;
 
-// ─── DOM refs ─────────────────────────────────────────────────────────────────
-const projectItems      = document.querySelectorAll('.support-project-item');
-const paymentPanel      = document.getElementById('paymentPanel');
-const dynamicName       = document.getElementById('dynamicProjectName');
-const amountBtns        = document.querySelectorAll('.amount-btn');
-const otherBtn          = document.querySelector('.amount-btn.other-btn');
-const otherInputWrapper = document.getElementById('otherInputWrapper');
-const otherAmountInput  = document.getElementById('otherAmountInput');
-const nextBtn           = document.getElementById('nextBtn');
+// ─── Init — wait until render-support.js has built the project items ──────────
+document.addEventListener('projectsRendered', init);
 
-// ─── Project Selection ────────────────────────────────────────────────────────
-projectItems.forEach(item => {
+function init() {
+
+  // DOM refs — queried here so the rendered items exist
+  const projectItems      = document.querySelectorAll('.support-project-item');
+  const paymentPanel      = document.getElementById('paymentPanel');
+  const dynamicName       = document.getElementById('dynamicProjectName');
+  const amountBtns        = document.querySelectorAll('.amount-btn');
+  const otherBtn          = document.querySelector('.amount-btn.other-btn');
+  const otherInputWrapper = document.getElementById('otherInputWrapper');
+  const otherAmountInput  = document.getElementById('otherAmountInput');
+  const nextBtn           = document.getElementById('nextBtn');
+
+  // ─── Project selection ───────────────────────────────────────────────────
+  projectItems.forEach(item => {
     item.addEventListener('click', () => selectProject(item));
     item.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            selectProject(item);
-        }
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        selectProject(item);
+      }
     });
-});
+  });
 
-function selectProject(item) {
+  function selectProject(item) {
     projectItems.forEach(p => {
-        p.classList.remove('selected');
-        p.setAttribute('aria-selected', 'false');
+      p.classList.remove('selected');
+      p.setAttribute('aria-selected', 'false');
     });
-
     item.classList.add('selected');
     item.setAttribute('aria-selected', 'true');
     selectedProject = item.dataset.project;
-
     dynamicName.textContent = ' ' + item.dataset.name;
-
     paymentPanel.classList.add('visible');
-
     updateNextBtn();
-}
+  }
 
-// ─── Amount Selection ─────────────────────────────────────────────────────────
-amountBtns.forEach(btn => {
+  // ─── Amount selection ────────────────────────────────────────────────────
+  amountBtns.forEach(btn => {
     btn.addEventListener('click', () => selectAmount(btn));
-});
+  });
 
-function selectAmount(btn) {
+  function selectAmount(btn) {
     const value = btn.dataset.amount;
-
     amountBtns.forEach(b => b.classList.remove('selected'));
     btn.classList.add('selected');
 
     if (value === 'other') {
-        selectedAmount = 'other';
-        customAmount   = null;
-
-        otherInputWrapper.classList.add('visible');
-        btn.setAttribute('aria-expanded', 'true');
-        otherAmountInput.focus();
+      selectedAmount = 'other';
+      customAmount   = null;
+      otherInputWrapper.classList.add('visible');
+      btn.setAttribute('aria-expanded', 'true');
+      otherAmountInput.focus();
     } else {
-        selectedAmount = parseInt(value, 10);
-        customAmount   = null;
-
-        otherInputWrapper.classList.remove('visible');
-        otherBtn.setAttribute('aria-expanded', 'false');
-        otherAmountInput.value = '';
+      selectedAmount = parseInt(value, 10);
+      customAmount   = null;
+      otherInputWrapper.classList.remove('visible');
+      otherBtn.setAttribute('aria-expanded', 'false');
+      otherAmountInput.value = '';
     }
-
     updateNextBtn();
-}
+  }
 
-// Custom amount input — always floor to nearest whole dollar
-otherAmountInput.addEventListener('input', () => {
+  otherAmountInput.addEventListener('input', () => {
     const raw = parseFloat(otherAmountInput.value);
-
-    if (!isNaN(raw) && raw >= 1) {
-        customAmount = Math.floor(raw);
-    } else {
-        customAmount = null;
-    }
-
+    customAmount = (!isNaN(raw) && raw >= 1) ? Math.floor(raw) : null;
     updateNextBtn();
-});
+  });
 
-// ─── Next button state ────────────────────────────────────────────────────────
-function updateNextBtn() {
-    const projectReady = !!selectedProject;
-    const amountReady  = selectedAmount !== null &&
-                         (selectedAmount !== 'other' || customAmount !== null);
-
-    const ready = projectReady && amountReady;
+  // ─── Next button state ───────────────────────────────────────────────────
+  function updateNextBtn() {
+    const ready = !!selectedProject &&
+                  selectedAmount !== null &&
+                  (selectedAmount !== 'other' || customAmount !== null);
     nextBtn.disabled = !ready;
     nextBtn.setAttribute('aria-disabled', String(!ready));
     nextBtn.classList.toggle('active', ready);
-}
+  }
 
-// ─── Checkout ─────────────────────────────────────────────────────────────────
-nextBtn.addEventListener('click', () => {
+  // ─── Checkout ────────────────────────────────────────────────────────────
+  nextBtn.addEventListener('click', () => {
     if (nextBtn.disabled) return;
     openCheckout();
-});
+  });
 
-function openCheckout() {
+  function openCheckout() {
     const projectPrices = PADDLE_PRICE_IDS[selectedProject];
-
     if (!projectPrices) {
-        console.error('No price IDs found for project:', selectedProject);
-        return;
+      console.error('No price IDs found for project:', selectedProject);
+      return;
     }
 
-    let priceId;
-    let quantity;
-
-    if (selectedAmount === 'other') {
-        // Use $1 price × floored custom amount as quantity
-        priceId  = projectPrices[1];
-        quantity = customAmount;
-    } else {
-        priceId  = projectPrices[selectedAmount];
-        quantity = 1;
-    }
+    const priceId  = selectedAmount === 'other' ? projectPrices[1]              : projectPrices[selectedAmount];
+    const quantity = selectedAmount === 'other' ? customAmount                  : 1;
 
     Paddle.Checkout.open({
-        items: [{
-            priceId:  priceId,
-            quantity: quantity
-        }],
-        customData: {
-            project: selectedProject
-        }
+      items: [{ priceId, quantity }],
+      customData: { project: selectedProject }
     });
+  }
+
 }
