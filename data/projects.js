@@ -152,3 +152,5 @@ const PROJECTS = [
   },
 
 ];
+// Node.js compatibility — ignored by browsers
+if (typeof module !== 'undefined') module.exports = { PROJECTS };

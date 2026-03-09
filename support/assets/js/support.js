@@ -1,8 +1,11 @@
 /**
  * support.js
  * Project selection → payment fade-in → amount pick → Paddle checkout
- * Waits for 'projectsRendered' event from render-support.js before
- * querying the DOM, since items are built dynamically.
+ *
+ * Works in two environments:
+ *   - Production (built): items are in the HTML at parse time, DOMContentLoaded fires first
+ *   - Local dev: render-support.js builds items dynamically, fires 'projectsRendered'
+ * The initialised guard ensures init() only runs once regardless of which event fires.
  */
 
 // ─── Paddle price IDs ─────────────────────────────────────────────────────────
@@ -49,108 +52,115 @@ const PADDLE_PRICE_IDS = {
 let selectedProject = null;
 let selectedAmount  = null;
 let customAmount    = null;
+let initialised     = false;
 
-// ─── Init — wait until render-support.js has built the project items ──────────
-document.addEventListener('projectsRendered', init);
+// ─── Init trigger — whichever fires first wins, guard prevents double run ─────
+function safeInit() {
+    if (initialised) return;
+    initialised = true;
+    init();
+}
+
+document.addEventListener('DOMContentLoaded', safeInit);     // production: items already in HTML
+document.addEventListener('projectsRendered', safeInit);     // local dev: render-support.js built them
 
 function init() {
 
-  // DOM refs — queried here so the rendered items exist
-  const projectItems      = document.querySelectorAll('.support-project-item');
-  const paymentPanel      = document.getElementById('paymentPanel');
-  const dynamicName       = document.getElementById('dynamicProjectName');
-  const amountBtns        = document.querySelectorAll('.amount-btn');
-  const otherBtn          = document.querySelector('.amount-btn.other-btn');
-  const otherInputWrapper = document.getElementById('otherInputWrapper');
-  const otherAmountInput  = document.getElementById('otherAmountInput');
-  const nextBtn           = document.getElementById('nextBtn');
+    const projectItems      = document.querySelectorAll('.support-project-item');
+    const paymentPanel      = document.getElementById('paymentPanel');
+    const dynamicName       = document.getElementById('dynamicProjectName');
+    const amountBtns        = document.querySelectorAll('.amount-btn');
+    const otherBtn          = document.querySelector('.amount-btn.other-btn');
+    const otherInputWrapper = document.getElementById('otherInputWrapper');
+    const otherAmountInput  = document.getElementById('otherAmountInput');
+    const nextBtn           = document.getElementById('nextBtn');
 
-  // ─── Project selection ───────────────────────────────────────────────────
-  projectItems.forEach(item => {
-    item.addEventListener('click', () => selectProject(item));
-    item.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        selectProject(item);
-      }
+    // ─── Project selection ───────────────────────────────────────────────────
+    projectItems.forEach(item => {
+        item.addEventListener('click', () => selectProject(item));
+        item.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                selectProject(item);
+            }
+        });
     });
-  });
 
-  function selectProject(item) {
-    projectItems.forEach(p => {
-      p.classList.remove('selected');
-      p.setAttribute('aria-selected', 'false');
-    });
-    item.classList.add('selected');
-    item.setAttribute('aria-selected', 'true');
-    selectedProject = item.dataset.project;
-    dynamicName.textContent = ' ' + item.dataset.name;
-    paymentPanel.classList.add('visible');
-    updateNextBtn();
-  }
-
-  // ─── Amount selection ────────────────────────────────────────────────────
-  amountBtns.forEach(btn => {
-    btn.addEventListener('click', () => selectAmount(btn));
-  });
-
-  function selectAmount(btn) {
-    const value = btn.dataset.amount;
-    amountBtns.forEach(b => b.classList.remove('selected'));
-    btn.classList.add('selected');
-
-    if (value === 'other') {
-      selectedAmount = 'other';
-      customAmount   = null;
-      otherInputWrapper.classList.add('visible');
-      btn.setAttribute('aria-expanded', 'true');
-      otherAmountInput.focus();
-    } else {
-      selectedAmount = parseInt(value, 10);
-      customAmount   = null;
-      otherInputWrapper.classList.remove('visible');
-      otherBtn.setAttribute('aria-expanded', 'false');
-      otherAmountInput.value = '';
-    }
-    updateNextBtn();
-  }
-
-  otherAmountInput.addEventListener('input', () => {
-    const raw = parseFloat(otherAmountInput.value);
-    customAmount = (!isNaN(raw) && raw >= 1) ? Math.floor(raw) : null;
-    updateNextBtn();
-  });
-
-  // ─── Next button state ───────────────────────────────────────────────────
-  function updateNextBtn() {
-    const ready = !!selectedProject &&
-                  selectedAmount !== null &&
-                  (selectedAmount !== 'other' || customAmount !== null);
-    nextBtn.disabled = !ready;
-    nextBtn.setAttribute('aria-disabled', String(!ready));
-    nextBtn.classList.toggle('active', ready);
-  }
-
-  // ─── Checkout ────────────────────────────────────────────────────────────
-  nextBtn.addEventListener('click', () => {
-    if (nextBtn.disabled) return;
-    openCheckout();
-  });
-
-  function openCheckout() {
-    const projectPrices = PADDLE_PRICE_IDS[selectedProject];
-    if (!projectPrices) {
-      console.error('No price IDs found for project:', selectedProject);
-      return;
+    function selectProject(item) {
+        projectItems.forEach(p => {
+            p.classList.remove('selected');
+            p.setAttribute('aria-selected', 'false');
+        });
+        item.classList.add('selected');
+        item.setAttribute('aria-selected', 'true');
+        selectedProject = item.dataset.project;
+        dynamicName.textContent = ' ' + item.dataset.name;
+        paymentPanel.classList.add('visible');
+        updateNextBtn();
     }
 
-    const priceId  = selectedAmount === 'other' ? projectPrices[1]              : projectPrices[selectedAmount];
-    const quantity = selectedAmount === 'other' ? customAmount                  : 1;
-
-    Paddle.Checkout.open({
-      items: [{ priceId, quantity }],
-      customData: { project: selectedProject }
+    // ─── Amount selection ────────────────────────────────────────────────────
+    amountBtns.forEach(btn => {
+        btn.addEventListener('click', () => selectAmount(btn));
     });
-  }
+
+    function selectAmount(btn) {
+        const value = btn.dataset.amount;
+        amountBtns.forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+
+        if (value === 'other') {
+            selectedAmount = 'other';
+            customAmount   = null;
+            otherInputWrapper.classList.add('visible');
+            btn.setAttribute('aria-expanded', 'true');
+            otherAmountInput.focus();
+        } else {
+            selectedAmount = parseInt(value, 10);
+            customAmount   = null;
+            otherInputWrapper.classList.remove('visible');
+            otherBtn.setAttribute('aria-expanded', 'false');
+            otherAmountInput.value = '';
+        }
+        updateNextBtn();
+    }
+
+    otherAmountInput.addEventListener('input', () => {
+        const raw = parseFloat(otherAmountInput.value);
+        customAmount = (!isNaN(raw) && raw >= 1) ? Math.floor(raw) : null;
+        updateNextBtn();
+    });
+
+    // ─── Next button state ───────────────────────────────────────────────────
+    function updateNextBtn() {
+        const ready = !!selectedProject &&
+                      selectedAmount !== null &&
+                      (selectedAmount !== 'other' || customAmount !== null);
+        nextBtn.disabled = !ready;
+        nextBtn.setAttribute('aria-disabled', String(!ready));
+        nextBtn.classList.toggle('active', ready);
+    }
+
+    // ─── Checkout ────────────────────────────────────────────────────────────
+    nextBtn.addEventListener('click', () => {
+        if (nextBtn.disabled) return;
+        openCheckout();
+    });
+
+    function openCheckout() {
+        const projectPrices = PADDLE_PRICE_IDS[selectedProject];
+        if (!projectPrices) {
+            console.error('No price IDs found for project:', selectedProject);
+            return;
+        }
+
+        const priceId  = selectedAmount === 'other' ? projectPrices[1] : projectPrices[selectedAmount];
+        const quantity = selectedAmount === 'other' ? customAmount      : 1;
+
+        Paddle.Checkout.open({
+            items: [{ priceId, quantity }],
+            customData: { project: selectedProject }
+        });
+    }
 
 }
