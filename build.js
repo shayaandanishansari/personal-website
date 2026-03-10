@@ -60,6 +60,14 @@ function buildLanding() {
   function projectCard(p, isMain = false) {
     return `<article class="project-card${isMain ? ' main-project' : ''}"
                  data-project="${p.id}"
+                 data-title="${p.name}"
+                 data-description="${p.description}"
+                 data-tech="${p.tech.join(',')}"
+                 data-color="${p.color}"
+                 data-logo="${IMG_ROOT}${p.logo}"
+                 data-preview="${IMG_ROOT}${p.preview}"
+                 data-demo-url="${p.demoUrl || ''}"
+                 data-read-url="projects/${p.id}.html"
                  tabindex="0" role="button" aria-label="View ${p.name}">
                 <div class="project-header">
                     <img src="${IMG_ROOT}${p.logo}" alt="${p.name} Logo" class="project-logo">
