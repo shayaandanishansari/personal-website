@@ -100,6 +100,28 @@ body {
     text-decoration: underline;
 }
 
+.footer-socials {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+.footer-social-link {
+    color: #cccccc;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s;
+}
+
+.footer-social-link:hover {
+    color: #ffffff;
+}
+
+.footer-social-link svg {
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
 .footer-right {
     display: flex;
     flex-direction: column;

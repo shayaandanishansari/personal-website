@@ -10,6 +10,7 @@ const fs   = require('fs');
 const path = require('path');
 
 const { PROJECTS } = require('./data/projects.js');
+const { SOCIALS }  = require('./data/socials.js');
 
 const IMG_ROOT   = 'assets/img/';
 const IMG_SUBDIR = '../assets/img/';
@@ -28,11 +29,16 @@ function navbar(prefix = '') {
 }
 
 function footer(prefix = '') {
+  const socialLinks = SOCIALS.map(s =>
+    `<a href="${s.url}" class="footer-social-link" aria-label="${s.name}" target="_blank" rel="noopener noreferrer">${s.logo}</a>`
+  ).join('');
+
   return `<footer class="site-footer">
         <div class="footer-content">
             <div class="footer-left">
                 <p>&copy; Shayaan Danish 2026</p>
                 <a href="mailto:shayaan0303@gmail.com" class="footer-email">shayaan0303@gmail.com</a>
+                <div class="footer-socials">${socialLinks}</div>
             </div>
             <div class="footer-right">
                 <a href="${prefix}policies/terms-and-conditions.html">Terms and Conditions</a>
@@ -274,6 +280,82 @@ ${overviewHtml}
 </html>`;
 }
 
+function buildContact() {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Shayaan Danish">
+    <title>Contact | Shayaan Danish</title>
+    <link rel="stylesheet" href="assets/css/contact.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body class="contact-page">
+
+    ${navbar('../')}
+
+    <main class="contact-main">
+
+        <h1 class="contact-heading">Get in touch.</h1>
+
+        <form class="contact-form" id="contactForm" novalidate>
+
+            <input type="hidden" name="access_key" value="5267d136-aaad-413f-b772-40f22eaead36">
+            <input type="hidden" name="subject" value="New message from shayaandanish.com">
+            <input type="checkbox" name="botcheck" style="display:none">
+
+            <div class="contact-field">
+                <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    placeholder="Name"
+                    autocomplete="name"
+                    required
+                >
+            </div>
+
+            <div class="contact-field">
+                <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="Email"
+                    autocomplete="email"
+                    required
+                >
+            </div>
+
+            <div class="contact-field">
+                <textarea
+                    name="message"
+                    id="message"
+                    placeholder="Message"
+                    rows="6"
+                    required
+                ></textarea>
+            </div>
+
+            <button type="submit" class="contact-submit" id="submitBtn">
+                <span class="submit-label">Send</span>
+                <span class="submit-spinner" aria-hidden="true"></span>
+            </button>
+
+            <div class="contact-feedback" id="contactFeedback" role="alert" aria-live="polite"></div>
+
+        </form>
+
+    </main>
+
+    ${footer('../')}
+
+    <script src="assets/js/contact.js"></script>
+
+</body>
+</html>`;
+}
+
 function buildSupport() {
   // Items baked in — no render-support.js or data/projects.js needed at runtime
   const items = PROJECTS.map(p => `<div class="support-project-item"
@@ -387,14 +469,16 @@ function build() {
   });
   write(`${DIST}/support/index.html`, buildSupport());
 
+  write(`${DIST}/contact/index.html`, buildContact());
+
   copyDir('assets',          `${DIST}/assets`);
   copyDir('data',            `${DIST}/data`);
   copyDir('projects/assets', `${DIST}/projects/assets`);
   copyDir('support/assets',  `${DIST}/support/assets`);
-  copyDir('contact',         `${DIST}/contact`);
+  copyDir('contact/assets',  `${DIST}/contact/assets`);
   copyDir('policies',        `${DIST}/policies`);
 
-  console.log(`\n✓  Done — ${PROJECTS.length + 3} files written.\n`);
+  console.log(`\n✓  Done — ${PROJECTS.length + 4} files written.\n`);
 }
 
 build();

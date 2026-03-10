@@ -40,3 +40,5 @@ const SOCIALS = [
   },
 
 ];
+
+if (typeof module !== 'undefined') module.exports = { SOCIALS };
