@@ -12,8 +12,38 @@ const path = require('path');
 const { PROJECTS } = require('./data/projects.js');
 const { SOCIALS }  = require('./data/socials.js');
 
+const BASE_URL   = 'https://shayaandanishansari.com';
 const IMG_ROOT   = 'assets/img/';
 const IMG_SUBDIR = '../assets/img/';
+
+// ─── Head partial ─────────────────────────────────────────────────────────────
+
+function head({ title, description, url, image, css = [], jsonLd = null }) {
+  const ogImage = image || `${BASE_URL}/assets/img/profile.jpg`;
+  const cssLinks = css.map(href => `    <link rel="stylesheet" href="${href}">`).join('\n');
+  const jsonLdBlock = jsonLd
+    ? `    <script type="application/ld+json">\n    ${JSON.stringify(jsonLd, null, 2).replace(/\n/g, '\n    ')}\n    </script>`
+    : '';
+
+  return `<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="${description}">
+    <meta name="author" content="Shayaan Danish">
+    <title>${title}</title>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="${url}">
+    <meta property="og:title" content="${title}">
+    <meta property="og:description" content="${description}">
+    <meta property="og:image" content="${ogImage}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="${title}">
+    <meta name="twitter:description" content="${description}">
+    <meta name="twitter:image" content="${ogImage}">
+${cssLinks}
+${jsonLdBlock}
+</head>`;
+}
 
 // ─── Shared partials ──────────────────────────────────────────────────────────
 
@@ -100,17 +130,24 @@ function buildLanding() {
         </div>`;
   }).join('\n        ');
 
+  const personSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Shayaan Danish',
+    jobTitle: 'Software Engineer',
+    url: BASE_URL,
+    sameAs: SOCIALS.map(s => s.url),
+  };
+
   return `<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Shayaan Danish - Creative Problem Solver and Software Engineer specializing in Websites, Apps, and LLM Systems">
-    <meta name="author" content="Shayaan Danish">
-    <title>Shayaan Danish | Software Engineer</title>
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/landing.css">
-</head>
+${head({
+    title: 'Shayaan Danish | Software Engineer',
+    description: 'Shayaan Danish - Creative Problem Solver and Software Engineer specializing in Websites, Apps, and LLM Systems',
+    url: `${BASE_URL}/`,
+    css: ['assets/css/main.css', 'assets/css/landing.css'],
+    jsonLd: personSchema,
+  })}
 <body>
 
     ${navbar()}
@@ -180,14 +217,12 @@ function buildProjectsList() {
 
   return `<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Projects by Shayaan Danish — Websites, Apps, and LLM Systems">
-    <title>Projects | Shayaan Danish</title>
-    <link rel="stylesheet" href="../assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/projects.css">
-</head>
+${head({
+    title: 'Projects | Shayaan Danish',
+    description: 'Projects by Shayaan Danish — Websites, Apps, and LLM Systems',
+    url: `${BASE_URL}/projects/`,
+    css: ['../assets/css/main.css', 'assets/css/projects.css'],
+  })}
 <body class="projects-page">
 
     ${navbar('../')}
@@ -223,16 +258,25 @@ function buildProjectDetail(project) {
     .map(para => `                <p>${para}</p>`)
     .join('\n');
 
+  const appSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: project.name,
+    description: project.tagline,
+    applicationCategory: project.categoryLabel,
+    author: { '@type': 'Person', name: 'Shayaan Danish' },
+  };
+
   return `<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="${project.name} — ${project.tagline}">
-    <title>${project.name} | Shayaan Danish</title>
-    <link rel="stylesheet" href="../assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/projects.css">
-</head>
+${head({
+    title: `${project.name} | Shayaan Danish`,
+    description: `${project.name} — ${project.tagline}`,
+    url: `${BASE_URL}/projects/${project.id}.html`,
+    image: `${BASE_URL}/assets/img/${project.preview}`,
+    css: ['../assets/css/main.css', 'assets/css/projects.css'],
+    jsonLd: appSchema,
+  })}
 <body class="project-detail-page">
 
     ${navbar('../')}
@@ -283,14 +327,12 @@ ${overviewHtml}
 function buildContact() {
   return `<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Contact Shayaan Danish">
-    <title>Contact | Shayaan Danish</title>
-    <link rel="stylesheet" href="assets/css/contact.css">
-    <link rel="stylesheet" href="../assets/css/main.css">
-</head>
+${head({
+    title: 'Contact | Shayaan Danish',
+    description: 'Contact Shayaan Danish',
+    url: `${BASE_URL}/contact/`,
+    css: ['assets/css/contact.css', '../assets/css/main.css'],
+  })}
 <body class="contact-page">
 
     ${navbar('../')}
@@ -368,14 +410,12 @@ function buildSupport() {
 
   return `<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Support a Project - Shayaan Danish">
-    <title>Support a Project | Shayaan Danish</title>
-    <link rel="stylesheet" href="../assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/support.css">
-</head>
+${head({
+    title: 'Support a Project | Shayaan Danish',
+    description: 'Support a Project - Shayaan Danish',
+    url: `${BASE_URL}/support/`,
+    css: ['../assets/css/main.css', 'assets/css/support.css'],
+  })}
 <body class="support-page">
 
     ${navbar('../')}
@@ -441,6 +481,24 @@ function buildSupport() {
 </html>`;
 }
 
+// ─── Sitemap & robots ─────────────────────────────────────────────────────────
+
+function buildSitemap() {
+  const urls = [
+    `${BASE_URL}/`,
+    `${BASE_URL}/projects/`,
+    ...PROJECTS.map(p => `${BASE_URL}/projects/${p.id}.html`),
+    `${BASE_URL}/support/`,
+    `${BASE_URL}/contact/`,
+  ];
+  const urlEntries = urls.map(u => `  <url><loc>${u}</loc></url>`).join('\n');
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urlEntries}\n</urlset>`;
+}
+
+function buildRobotsTxt() {
+  return `User-agent: *\nAllow: /\nSitemap: ${BASE_URL}/sitemap.xml\n`;
+}
+
 // ─── Write files ──────────────────────────────────────────────────────────────
 
 const DIST = 'dist';
@@ -470,6 +528,8 @@ function build() {
   write(`${DIST}/support/index.html`, buildSupport());
 
   write(`${DIST}/contact/index.html`, buildContact());
+  write(`${DIST}/sitemap.xml`, buildSitemap());
+  write(`${DIST}/robots.txt`, buildRobotsTxt());
 
   copyDir('assets',          `${DIST}/assets`);
   copyDir('data',            `${DIST}/data`);
@@ -478,7 +538,7 @@ function build() {
   copyDir('contact/assets',  `${DIST}/contact/assets`);
   copyDir('policies',        `${DIST}/policies`);
 
-  console.log(`\n✓  Done — ${PROJECTS.length + 4} files written.\n`);
+  console.log(`\n✓  Done — ${PROJECTS.length + 6} files written.\n`);
 }
 
 build();
