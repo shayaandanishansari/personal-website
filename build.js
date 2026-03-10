@@ -353,20 +353,39 @@ function buildSupport() {
 
 // ─── Write files ──────────────────────────────────────────────────────────────
 
+const DIST = 'dist';
+
 function write(filePath, content) {
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
   fs.writeFileSync(filePath, content, 'utf8');
   console.log(`✓  ${filePath}`);
 }
 
+function copyDir(src, dest) {
+  fs.cpSync(src, dest, { recursive: true });
+  console.log(`✓  ${dest}/`);
+}
+
 function build() {
+  if (fs.existsSync(DIST)) fs.rmSync(DIST, { recursive: true });
+  fs.mkdirSync(DIST);
+
   console.log('\nBuilding...\n');
-  write('index.html', buildLanding());
-  write('projects/index.html', buildProjectsList());
+
+  write(`${DIST}/index.html`, buildLanding());
+  write(`${DIST}/projects/index.html`, buildProjectsList());
   PROJECTS.forEach(project => {
-    write(`projects/${project.id}.html`, buildProjectDetail(project));
+    write(`${DIST}/projects/${project.id}.html`, buildProjectDetail(project));
   });
-  write('support/index.html', buildSupport());
+  write(`${DIST}/support/index.html`, buildSupport());
+
+  copyDir('assets',          `${DIST}/assets`);
+  copyDir('data',            `${DIST}/data`);
+  copyDir('projects/assets', `${DIST}/projects/assets`);
+  copyDir('support/assets',  `${DIST}/support/assets`);
+  copyDir('contact',         `${DIST}/contact`);
+  copyDir('policies',        `${DIST}/policies`);
+
   console.log(`\n✓  Done — ${PROJECTS.length + 3} files written.\n`);
 }
 
